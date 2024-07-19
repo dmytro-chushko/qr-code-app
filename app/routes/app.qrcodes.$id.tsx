@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { json, redirect } from "@remix-run/node";
+import { ActionFunctionArgs, LoaderFunctionArgs, json, redirect } from "@remix-run/node";
 import {
   useActionData,
   useLoaderData,
@@ -30,7 +30,7 @@ import { ImageIcon } from "@shopify/polaris-icons";
 import db from "../db.server";
 import { getQRCode, validateQRCode } from "../models/QRCode.server";
 
-export async function loader({ request, params }) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   const { admin } = await authenticate.admin(request);
 
   if (params.id === "new") {
@@ -43,12 +43,12 @@ export async function loader({ request, params }) {
   return json(await getQRCode(Number(params.id), admin.graphql));
 }
 
-export async function action({ request, params }) {
+export async function action({ request, params }: ActionFunctionArgs) {
   const { session } = await authenticate.admin(request);
   const { shop } = session;
 
   /** @type {any} */
-  const data = {
+  const data: any = {
     ...Object.fromEntries(await request.formData()),
     shop,
   };
@@ -73,9 +73,9 @@ export async function action({ request, params }) {
 }
 
 export default function QRCodeForm() {
-  const errors = useActionData()?.errors || {};
+  const errors = useActionData<typeof action>()?.errors || {};
 
-  const qrCode = useLoaderData();
+  const qrCode = useLoaderData<typeof loader>();
   const [formState, setFormState] = useState(qrCode);
   const [cleanFormState, setCleanFormState] = useState(qrCode);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
@@ -107,4 +107,18 @@ export default function QRCodeForm() {
         productImage: images[0]?.originalSrc,
       });
     }
+  }
+
+  const submit = useSubmit();
+  function handleSave() {
+    const data = {
+      title: formState.title,
+      productId: formState.productId || "",
+      productVariantId: formState.productVariantId || "",
+      productHandle: formState.productHandle || "",
+      destination: formState.destination,
+    };
+
+    setCleanFormState({ ...formState });
+    submit(data, { method: "post" });
   }
