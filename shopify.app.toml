@@ -3,7 +3,7 @@
 client_id = "06ab26e9d011aed6c6de5c18efaced29"
 name = "qr-code-app"
 handle = "qr-code-app-277"
-application_url = "https://neon-positive-ever-deep.trycloudflare.com"
+application_url = "https://industrial-appendix-labour-hobby.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://neon-positive-ever-deep.trycloudflare.com/auth/callback",
-  "https://neon-positive-ever-deep.trycloudflare.com/auth/shopify/callback",
-  "https://neon-positive-ever-deep.trycloudflare.com/api/auth/callback"
+  "https://industrial-appendix-labour-hobby.trycloudflare.com/auth/callback",
+  "https://industrial-appendix-labour-hobby.trycloudflare.com/auth/shopify/callback",
+  "https://industrial-appendix-labour-hobby.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

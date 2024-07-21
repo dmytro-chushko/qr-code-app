@@ -157,13 +157,13 @@ export default function QRCodeForm() {
                   <Text as={"h2"} variant="headingLg">
                     Product
                   </Text>
-                  {formState.productId ? (
+                  {formState?.productId ? (
                     <Button variant="plain" onClick={selectProduct}>
                       Change product
                     </Button>
                   ) : null}
                 </InlineStack>
-                {formState.productId ? (
+                {formState?.productId ? (
                   <InlineStack blockAlign="center" gap="500">
                     <Thumbnail
                       source={formState.productImage || ImageIcon}
@@ -178,7 +178,7 @@ export default function QRCodeForm() {
                     <Button onClick={selectProduct} id="select-product">
                       Select product
                     </Button>
-                    {errors.productId ? (
+                    {errors?.productId ? (
                       <InlineError
                         message={errors.productId}
                         fieldID="myFieldID"
@@ -206,7 +206,7 @@ export default function QRCodeForm() {
                         destination: destination[0],
                       })
                     }
-                    error={errors.destination}
+                    error={errors?.destination}
                   />
                   {qrCode.destinationUrl ? (
                     <Button
