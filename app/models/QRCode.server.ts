@@ -81,7 +81,7 @@ async function supplementQRCode(qrCode, graphql) {
 }
 
 export function validateQRCode(data) {
-  const errors = {};
+  const errors: {title?: string; productId?: string; destination?: string} = {};
 
   if (!data.title) {
     errors.title = "Title is required";
